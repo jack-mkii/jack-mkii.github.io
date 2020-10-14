@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/jpg" href="./images/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="./node_modules/easytimer.js/dist/easytimer.min.js"></script>
+    <script src="timer.js"></script>
+	<script>
+		$(document).ready(function () {
+			const MAX = 13;
+			const MIN = 1;
+			const TIMER_COUNT = 7;
+
+			// set background
+			choice = Math.floor(Math.random() * (MAX - MIN)) + MIN + 1;
+			console.log(choice);
+			image_url = 'url(./images/backgrounds/' + choice.toString() + '.jpg' + ') no-repeat center center fixed';
+			$('.background').css('background', image_url);
+
+			function setup_timer(t, timers, div, start, stop, reset) {
+				t.addEventListener('secondsUpdated', function (e) {
+			    	$(div).html(t.getTimeValues().toString());
+			    	set_total_time(timers);
+				});
+
+				// // start
+				$(start).click(function () {
+					timers.forEach(function(timer) {
+						if (timer != t) {
+							timer.pause();
+						};
+					});
+				    t.start();
+				});
+
+				// stop
+				$(stop).click(function () {
+				    t.pause();
+				});
+
+				// reset
+				$(reset).click(function () {
+				    t.stop();
+				    $(div).html('00:00:00');
+				    set_total_time(timers);
+				});
+			};
+
+			function set_total_time(timers) {
+				total_h = total_m = total_s = 0;
+		    	timers.forEach(function(timer) {
+		    		total_h += timer.getTimeValues().hours;
+		    		total_m += timer.getTimeValues().minutes;
+		    		total_s += timer.getTimeValues().seconds;
+
+		    		if (total_s > 59) {
+		    			total_m += Math.floor(total_s / 60);
+		    			total_s = total_s % 60;
+		    		}
+		    	});
+
+		    	total_h = format_number(total_h);
+		    	total_m = format_number(total_m);
+		    	total_s = format_number(total_s);
+
+		    	$('#total').html('Total time: ' + total_h.toString() + ':' + total_m.toString() + ':' + total_s.toString());
+			};
+
+			function format_number(number) {
+				if (number < 10) {
+					return '0' + number.toString();
+				}
+				return number.toString();
+			};
+
+			timers = [];
+			timer_divs = ['#adds1', '#lokkie', '#adds2', '#yolna', '#adds3', '#nahvi', '#idle'];
+
+			for (i = 0; i < TIMER_COUNT; i++) {
+				var timer = new easytimer.Timer();
+				timers.push(timer);
+			};
+
+			for (i = 0; i < TIMER_COUNT; i++) {
+				timer = timers[i];
+				div = timer_divs[i];
+
+				setup_timer(
+					timer,
+					timers,
+					div,
+					'.start-' + (i + 1).toString(),
+					'.stop-' + (i + 1).toString(),
+					'.reset-' + (i + 1).toString()
+				);
+			};
+		});
+	</script>
+</head>
+<body>
+	<br />
+	<div id='title-header'>
+		<div class='col-xs-2'><h3 class='title'>Raid Timers</h3><hr></div>
+		<div class='col-xs-2'></div>
+		<a href="./vhof.html">
+			<div class='col-xs-2'><h3 class='raid-title'>Halls of Fabrication</h3></div>
+		</a>
+		<a href="./vcr.html">
+			<div class='col-xs-2'><h3 class='raid-title'>Cloudrest</h3></div>
+		</a>
+		<div class='col-xs-2'><h3 class='raid-title selected-title'>Sunspire</h3></div>
+		<a href="./vka.html">
+			<div class='col-xs-2'><h3 class='raid-title'>Kyne's Aegis</h3></div>
+		</a>
+	</div>
+	<div class="container">
+		<div class="background"></div>
+		<h3>Sunspire</h3>
+
+		<br />
+		<hr style='border-color: #434A54;'>
+		<div class='row'>
+			<div class='col-xs-2'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text'>Add phase 1</div></div>
+			<div class='col-xs-2'><img src="./images/vss/lokkie.png" class='b-image'><div class='image-text'>Lokkestiiz</div></div>
+			<div class='col-xs-2'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text'>Add phase 2</div></div>
+			<div class='col-xs-2'><img src="./images/vss/yolna.jpg" class='b-image'><div class='image-text'>Yolnahkriin</div></div>
+			<div class='col-xs-2'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text'>Add phase 3</div></div>
+			<div class='col-xs-2'><img src="./images/vss/nahvi.jpg" class='b-image'><div class='image-text'>Nahviintaas</div></div>
+		</div>
+		<hr style='border-color: #434A54;'>
+		<br />
+		<div class='row'>
+			<div class='col-xs-2'><div id="adds1">00:00:00</div></div>
+			<div class='col-xs-2'><div id="lokkie">00:00:00</div></div>
+			<div class='col-xs-2'><div id="adds2">00:00:00</div></div>
+			<div class='col-xs-2'><div id="yolna">00:00:00</div></div>
+			<div class='col-xs-2'><div id="adds3">00:00:00</div></div>
+			<div class='col-xs-2'><div id="nahvi">00:00:00</div></div>
+		</div>
+		<br />
+		<div class='row'>
+			<div class='col-xs-2'><button type="button" class="btn btn-success start-1" style="width: 100%">Start</button></div>
+			<div class='col-xs-2'><button type="button" class="btn btn-success start-2" style="width: 100%">Start</button></div>
+			<div class='col-xs-2'><button type="button" class="btn btn-success start-3" style="width: 100%">Start</button></div>
+			<div class='col-xs-2'><button type="button" class="btn btn-success start-4" style="width: 100%">Start</button></div>
+			<div class='col-xs-2'><button type="button" class="btn btn-success start-5" style="width: 100%">Start</button></div>
+			<div class='col-xs-2'><button type="button" class="btn btn-success start-6" style="width: 100%">Start</button></div>
+		</div>
+		<div class='row'>
+			<div class='col-xs-2'><button type="button" class="btn btn-danger stop-1" style="width: 100%">Stop</button></div>
+			<div class='col-xs-2'><button type="button" class="btn btn-danger stop-2" style="width: 100%">Stop</button></div>
+			<div class='col-xs-2'><button type="button" class="btn btn-danger stop-3" style="width: 100%">Stop</button></div>
+			<div class='col-xs-2'><button type="button" class="btn btn-danger stop-4" style="width: 100%">Stop</button></div>
+			<div class='col-xs-2'><button type="button" class="btn btn-danger stop-5" style="width: 100%">Stop</button></div>
+			<div class='col-xs-2'><button type="button" class="btn btn-danger stop-6" style="width: 100%">Stop</button></div>
+		</div>
+		<br />
+		<div class='row'>
+			<div class='col-xs-2'><button type="button" class="btn btn-primary reset-1" style="width: 100%">Reset</button></div>
+			<div class='col-xs-2'><button type="button" class="btn btn-primary reset-2" style="width: 100%">Reset</button></div>
+			<div class='col-xs-2'><button type="button" class="btn btn-primary reset-3" style="width: 100%">Reset</button></div>
+			<div class='col-xs-2'><button type="button" class="btn btn-primary reset-4" style="width: 100%">Reset</button></div>
+			<div class='col-xs-2'><button type="button" class="btn btn-primary reset-5" style="width: 100%">Reset</button></div>
+			<div class='col-xs-2'><button type="button" class="btn btn-primary reset-6" style="width: 100%">Reset</button></div>
+		</div>
+		<br />
+		<br />
+		<div class='row'>
+			<div class='col-xs-1'></div>
+			<div class='col-xs-1'></div>
+			<div class='col-xs-1'></div>
+			<div class='col-xs-1'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text'>Idle*</div></div>
+			<div class='col-xs-1'><div id="idle" style="text-align: center; padding: 10px;">00:00:00</div></div>
+			<div class='col-xs-1'><button type="button" class="btn btn-idle start-7" style="width: 100%">Start</button></div>
+			<div class='col-xs-1'><button type="button" class="btn btn-idle stop-7" style="width: 100%">Stop</button></div>
+			<div class='col-xs-1'><button type="button" class="btn btn-idle reset-7" style="width: 100%">Reset</button></div>
+			<div class='col-xs-4 addendum'><div class="image-text-small">*use this if you want to time encounters specifically --- you can track idle time between encounters for things like swapping gear, discussing strategies, etc</div></div>
+		</div>
+		<br />
+		<div class='row'>
+			<div id='total' style='font-size: 50px; text-align: center;'>Total time: 00:00:00</div>
+		</div>
+	</div>
+</body>
+</html>
