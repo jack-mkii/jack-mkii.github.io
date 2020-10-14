@@ -1,0 +1,151 @@
+html, body {
+	height: 100%;
+	overflow: scroll;
+}
+
+/* BACKGROUND */
+
+.background {
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	background-attachment: fixed;
+	min-height: 100%;
+	height: 100vh;
+	width: 100%;
+	opacity: 0.6;
+	z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+
+/* HEADER BAR */
+
+#title-header {
+	background-color: #434A54;
+	width: 100%;
+	height: 110px;
+	margin-top: -30px;
+	padding-top: 19px;
+	position: fixed;
+	z-index: 5;
+}
+
+.title {
+	text-align: center;
+	font-size: 32px;
+	color: white;
+	vertical-align: center;
+}
+
+.raid-title {
+	text-align: center;
+	font-size: 20px;
+	color: white;
+	vertical-align: center;
+	padding: 13px 0 18px;
+}
+
+.raid-title:hover {
+	background-color: #656D78;
+}
+
+.selected-title {
+	border-bottom: solid thin white;
+}
+
+/* GENERAL */
+
+.container {
+	height: 100vh;
+	padding-top: 110px;
+}
+
+.col-xs-2 {
+	position: relative;
+}
+
+/* TEXT FORMATTING */
+
+.image-text {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: white;
+}
+
+.image-text-small {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 8px;
+	padding-top: 40px;
+}
+
+.addendum {
+	margin-left: -80px;
+}
+
+#adds1, #adds2, #adds3, #adds4, #adds5, #lokkie, #yolna, #nahvi, #yandir, #vrol, #falgravn,
+#hunter_killers, #factotum, #archcustodian, #triplets, #assembly_general, #zmaja {
+	text-align: center;
+	font-size: 2.5vw;
+}
+
+/* BUTTONS */
+
+.btn-idle {
+	color: white;
+	background-color: #434A54;
+	padding: 10px;
+}
+
+.btn-idle:hover {
+	color: white;
+	background-color: #656D78;
+}
+
+.btn-success {
+	background-color: #309146;
+	border: solid 1px #309146;
+}
+
+.btn-success:hover {
+	background-color: #267338;
+}
+
+.btn-danger {
+	background-color: #C3272B;
+	border: solid 1px #C3272B;
+}
+
+.btn-danger:hover {
+	background-color: #8F1D21;
+}
+
+/* VHOF SPECIFIC */
+
+.hof {
+	padding-left: 20vh;
+}
+
+.hof-idle {
+	padding-right: 10px;
+}
+
+.b-image {
+	width: 100%;
+	padding-top: 3%;
+}
+
+/* VCR SPECIFIC */
+
+.vcr {
+	font-size: 32px;
+}
