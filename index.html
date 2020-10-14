@@ -10,7 +10,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="./node_modules/easytimer.js/dist/easytimer.min.js"></script>
-    <script src="timer.js"></script>
 	<script>
 		$(document).ready(function () {
 			const MAX = 13;
@@ -25,8 +24,8 @@
 
 			function setup_timer(t, timers, div, start, stop, reset) {
 				t.addEventListener('secondsUpdated', function (e) {
-			    	$(div).html(t.getTimeValues().toString());
-			    	set_total_time(timers);
+				$(div).html(t.getTimeValues().toString());
+				set_total_time(timers);
 				});
 
 				// // start
@@ -54,22 +53,22 @@
 
 			function set_total_time(timers) {
 				total_h = total_m = total_s = 0;
-		    	timers.forEach(function(timer) {
-		    		total_h += timer.getTimeValues().hours;
-		    		total_m += timer.getTimeValues().minutes;
-		    		total_s += timer.getTimeValues().seconds;
+			timers.forEach(function(timer) {
+				total_h += timer.getTimeValues().hours;
+				total_m += timer.getTimeValues().minutes;
+				total_s += timer.getTimeValues().seconds;
 
-		    		if (total_s > 59) {
-		    			total_m += Math.floor(total_s / 60);
-		    			total_s = total_s % 60;
-		    		}
-		    	});
+				if (total_s > 59) {
+					total_m += Math.floor(total_s / 60);
+					total_s = total_s % 60;
+				}
+			});
 
-		    	total_h = format_number(total_h);
-		    	total_m = format_number(total_m);
-		    	total_s = format_number(total_s);
+			total_h = format_number(total_h);
+			total_m = format_number(total_m);
+			total_s = format_number(total_s);
 
-		    	$('#total').html('Total time: ' + total_h.toString() + ':' + total_m.toString() + ':' + total_s.toString());
+			$('#total').html('Total time: ' + total_h.toString() + ':' + total_m.toString() + ':' + total_s.toString());
 			};
 
 			function format_number(number) {
