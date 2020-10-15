@@ -62,11 +62,10 @@ html, body {
 
 .container {
 	height: 100vh;
-	padding-top: 110px;
 }
 
-.mobile {
-	padding-top: 0 !important;
+.web {
+	padding-top: 110px;
 }
 
 .col-xs-2 {
