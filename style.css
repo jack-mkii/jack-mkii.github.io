@@ -62,7 +62,7 @@ html, body {
 
 .container {
 	height: 100vh;
-	padding-top: 110px;
+	/*padding-top: 110px;*/
 }
 
 .col-xs-2 {
@@ -88,21 +88,35 @@ html, body {
 	padding-top: 40px;
 }
 
+.image-text-mobile {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: white;
+	font-size: 32px;
+}
+
 .addendum {
 	margin-top: 4vh;
 }
 
 #adds1, #adds2, #adds3, #adds4, #adds5, #lokkie, #yolna, #nahvi, #yandir, #vrol, #falgravn,
-#hunter_killers, #factotum, #archcustodian, #triplets, #assembly_general, #zmaja {
+#hunter_killers, #factotum, #archcustodian, #triplets, #assembly_general, #zmaja, #idle {
 	text-align: center;
 	font-size: 2.5vw;
 }
 
-/* BUTTONS */
+/* CAROUSELS */
 
-.btn {
-	font-size: 1.75vh;
+#timer_carousel {
+	width: 50%;
+	height: 50%;
+	margin: auto;
+	top: 10%;
 }
+
+/* BUTTONS */
 
 .btn-idle {
 	color: white;
@@ -132,6 +146,11 @@ html, body {
 
 .btn-danger:hover {
 	background-color: #8F1D21;
+}
+
+.btn-all {
+	color: white;
+	background-color: #434A54;
 }
 
 /* VHOF SPECIFIC */

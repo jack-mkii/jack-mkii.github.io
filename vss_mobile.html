@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/jpg" href="./images/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="./node_modules/easytimer/dist/easytimer.min.js"></script>               
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+		});
+	</script>
+	<script>
+		$(document).ready(function () {
+			const MAX = 13;
+			const MIN = 1;
+			const TIMER_COUNT = 7;
+
+			// set background
+			choice = Math.floor(Math.random() * (MAX - MIN)) + MIN + 1;
+			console.log(choice);
+			image_url = 'url(./images/backgrounds/' + choice.toString() + '.jpg' + ') no-repeat center center fixed';
+			$('.background').css('background', image_url);
+
+			function setup_timer(t, timers, div, start, stop, reset) {
+				t.addEventListener('secondsUpdated', function (e) {
+				$(div).html(t.getTimeValues().toString());
+					set_total_time(timers);
+				});
+
+				// // start
+				$(start).click(function () {
+					timers.forEach(function(timer) {
+						if (timer != t) {
+							timer.pause();
+						};
+					});
+				    t.start();
+				});
+
+				// stop
+				$(stop).click(function () {
+				    t.pause();
+				});
+
+				// reset
+				$(reset).click(function () {
+				    t.stop();
+				    $(div).html('00:00:00');
+				    set_total_time(timers);
+				});
+			};
+
+			function set_total_time(timers) {
+				total_h = total_m = total_s = 0;
+				timers.forEach(function(timer) {
+					total_h += timer.getTimeValues().hours;
+					total_m += timer.getTimeValues().minutes;
+					total_s += timer.getTimeValues().seconds;
+
+					if (total_s > 59) {
+						total_m += Math.floor(total_s / 60);
+						total_s = total_s % 60;
+					}
+				});
+
+				total_h = format_number(total_h);
+				total_m = format_number(total_m);
+				total_s = format_number(total_s);
+
+				$('#total').html('Total time: ' + total_h.toString() + ':' + total_m.toString() + ':' + total_s.toString());
+			};
+
+			function format_number(number) {
+				if (number < 10) {
+					return '0' + number.toString();
+				}
+				return number.toString();
+			};
+
+			timers = [];
+			timer_divs = ['#adds1', '#lokkie', '#adds2', '#yolna', '#adds3', '#nahvi', '#idle'];
+
+			for (i = 0; i < TIMER_COUNT; i++) {
+				var timer = new easytimer.Timer();
+				timers.push(timer);
+			};
+
+			for (i = 0; i < TIMER_COUNT; i++) {
+				timer = timers[i];
+				div = timer_divs[i];
+
+				setup_timer(
+					timer,
+					timers,
+					div,
+					'.start-' + (i + 1).toString(),
+					'.stop-' + (i + 1).toString(),
+					'.reset-' + (i + 1).toString()
+				);
+			};
+
+			// reset all
+			$('.reset-all').click( function() {
+				timers.forEach(function(timer) {
+					timer.stop();
+				});
+				timer_divs.forEach(function(div) {
+					$(div).html('00:00:00');
+				});
+				set_total_time(timers);
+			});
+
+			// idle button
+			$('.idle').click(function() {
+				$('.carousel').carousel(6);
+				$('.start-7').click();
+			})
+
+			// set indicator height to match carousel items
+			$('.carousel-control').css('height', $('.carousel-inner img').height());
+		});
+	</script>
+</head>
+<body>
+	<div class='container'>
+		<div class="background"></div>
+		<h3>Sunspire</h3>
+		<hr style='border-color: #434A54;'>
+		<div id="timer_carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+			<!-- Indicators -->
+			<ol style='padding-bottom: 5%;' class="carousel-indicators">
+				<li data-target="#timer_carousel" data-slide-to="0" class="active"></li>
+				<li data-target="#timer_carousel" data-slide-to="1"></li>
+				<li data-target="#timer_carousel" data-slide-to="2"></li>
+				<li data-target="#timer_carousel" data-slide-to="3"></li>
+				<li data-target="#timer_carousel" data-slide-to="4"></li>
+				<li data-target="#timer_carousel" data-slide-to="5"></li>
+				<li data-target="#timer_carousel" data-slide-to="6"></li>
+			</ol>
+
+			<!-- Wrapper for slides -->
+			<div class="carousel-inner">
+				<!-- Adds 1 -->
+				<div class="item active">
+					<div class='row'>
+						<div class='col-xs-12'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Add phase 1</div></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-12'><div id="adds1">00:00:00</div></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-success start-1" style="width: 100%">Start</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-1" style="width: 100%">Stop</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-1" style="width: 100%">Reset</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+				</div>
+
+				<!-- Lokkie -->
+				<div class="item">
+					<div class='row'>
+						<div class='col-xs-12'><img src="./images/vss/lokkie.png" style="width:100%;"><div class='image-text-mobile'>Lokkestiiz</div></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-12'><div id="lokkie">00:00:00</div></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-success start-2" style="width: 100%">Start</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-2" style="width: 100%">Stop</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-2" style="width: 100%">Reset</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+				</div>
+
+				<!-- Adds 2 -->
+				<div class="item">
+					<div class='row'>
+						<div class='col-xs-12'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Add phase 2</div></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-12'><div id="adds2">00:00:00</div></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-success start-3" style="width: 100%">Start</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-3" style="width: 100%">Stop</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-3" style="width: 100%">Reset</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+				</div>
+
+				<!-- Yolna -->
+				<div class="item">
+					<div class='row'>
+						<div class='col-xs-12'><img src="./images/vss/yolna.jpg" style="width:100%;"><div class='image-text-mobile'>Yolnahkriin</div></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-12'><div id="yolna">00:00:00</div></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-success start-4" style="width: 100%">Start</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-4" style="width: 100%">Stop</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-4" style="width: 100%">Reset</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+				</div>
+
+				<!-- Adds 3 -->
+				<div class="item">
+					<div class='row'>
+						<div class='col-xs-12'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Add phase 3</div></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-12'><div id="adds3">00:00:00</div></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-success start-5" style="width: 100%">Start</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-5" style="width: 100%">Stop</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-5" style="width: 100%">Reset</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+				</div>
+
+				<!-- Nahvi -->
+				<div class="item">
+					<div class='row'>
+						<div class='col-xs-12'><img src="./images/vss/nahvi.jpg" style="width:100%;"><div class='image-text-mobile'>Nahviintaas</div></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-12'><div id="nahvi">00:00:00</div></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-success start-6" style="width: 100%">Start</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-6" style="width: 100%">Stop</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-6" style="width: 100%">Reset</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+				</div>
+
+				<!-- Idle -->
+				<div class="item idle-item">
+					<div class='row'>
+						<div class='col-xs-12'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Idle time</div></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-12'><div id="idle">00:00:00</div></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-success start-7" style="width: 100%">Start</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-7" style="width: 100%">Stop</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-7" style="width: 100%">Reset</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+				</div>
+			</div>
+			<br />
+			<div class='row'>
+				<div class='col-xs-4'><button type="button" class="btn btn-all idle" style="width: 100%">Idle</button></div>
+				<div class='col-xs-4'></div>
+				<div class='col-xs-4'><button type="button" class="btn btn-all reset-all" style="width: 100%">Reset all</button></div>
+			</div>
+			<div class='row'>
+				<div id='total' style='font-size: 40px; text-align: center;'>Total time: 00:00:00</div>
+			</div>
+
+			<!-- Left and right controls -->
+			<a class="left carousel-control" href="#timer_carousel" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+			<a class="right carousel-control" href="#timer_carousel" data-slide="next">
+				<span class="glyphicon glyphicon-chevron-right"></span>
+				<span class="sr-only">Next</span>
+			</a>
+		</div>
+	</div>
+</body>
+</html>
