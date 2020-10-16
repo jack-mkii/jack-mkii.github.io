@@ -25,6 +25,10 @@ html, body {
 
 /* HEADER BAR */
 
+.mobile-header {
+	padding-top: 70px;
+}
+
 #title-header {
 	background-color: #434A54;
 	width: 100%;
