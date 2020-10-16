@@ -60,6 +60,10 @@ html, body {
 
 /* GENERAL */
 
+.mobile-wrap {
+	padding-top: 70px;
+}
+
 .container {
 	height: 100vh;
 }
