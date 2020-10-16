@@ -107,6 +107,7 @@ html, body {
 .time {
 	height: 80px;
 	padding: 10px;
+	font-size: 24px !important;
 }
 
 #adds1, #adds2, #adds3, #adds4, #adds5, #lokkie, #yolna, #nahvi, #yandir, #vrol, #falgravn,
