@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/jpg" href="./images/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./node_modules/slick/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="./node_modules/slick/slick/slick-theme.css">
     <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="./node_modules/easytimer/dist/easytimer.min.js"></script>               
+    <script src="./node_modules/easytimer/dist/easytimer.min.js"></script>
+    <script src="./node_modules/slick/slick/slick.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 
@@ -17,6 +20,24 @@
 	</script>
 	<script>
 		$(document).ready(function () {
+			$('.slider').slick({
+				centerMode: true,
+				slidesToShow: 1,
+				dots: true,
+				appendDots: $('.anchor'),
+				responsive: [
+					{
+						breakpoint: 768,
+						settings: {
+							arrows: true,
+							centerMode: true,
+							centerPadding: '40px',
+							slidesToShow: 1
+						}
+					}
+				]
+			});
+
 			const MAX = 13;
 			const MIN = 1;
 			const TIMER_COUNT = 7;
@@ -118,12 +139,12 @@
 
 			// idle button
 			$('.idle').click(function() {
-				$('.carousel').carousel(6);
+				$('.slider').slick('slickGoTo', 6);
 				$('.start-7').click();
 			})
 
 			// set indicator height to match carousel items
-			$('.carousel-control').css('height', $('.carousel-inner img').height());
+			// $('.carousel-control').css('height', $('.carousel-inner img').height());
 		});
 	</script>
 </head>
@@ -132,228 +153,206 @@
 		<div class="background"></div>
 		<h3>Sunspire</h3>
 		<hr style='border-color: #434A54;'>
-		<div id="timer_carousel" class="carousel slide" data-ride="carousel" data-interval="false">
-			<!-- Indicators -->
-			<ol style='padding-bottom: 5%;' class="carousel-indicators">
-				<li data-target="#timer_carousel" data-slide-to="0" class="active"></li>
-				<li data-target="#timer_carousel" data-slide-to="1"></li>
-				<li data-target="#timer_carousel" data-slide-to="2"></li>
-				<li data-target="#timer_carousel" data-slide-to="3"></li>
-				<li data-target="#timer_carousel" data-slide-to="4"></li>
-				<li data-target="#timer_carousel" data-slide-to="5"></li>
-				<li data-target="#timer_carousel" data-slide-to="6"></li>
-			</ol>
 
-			<!-- Wrapper for slides -->
-			<div class="carousel-inner">
-				<!-- Adds 1 -->
-				<div class="item active">
-					<div class='row'>
-						<div class='col-xs-12'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Add phase 1</div></div>
-					</div>
-					<br />
-					<div class='row'>
-						<div class='col-xs-12'><div id="adds1">00:00:00</div></div>
-					</div>
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-success start-1" style="width: 100%">Start</button></div>
-						<div class='col-xs-4'></div>
-					</div>
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-1" style="width: 100%">Stop</button></div>
-						<div class='col-xs-4'></div>
-					</div>
-					<br />
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-1" style="width: 100%">Reset</button></div>
-						<div class='col-xs-4'></div>
-					</div>
+		<div class="slider">
+			<!-- Adds 1 -->
+			<div>
+				<div class='row'>
+					<div class='col-xs-12 anchor'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Add phase 1</div></div>
 				</div>
-
-				<!-- Lokkie -->
-				<div class="item">
-					<div class='row'>
-						<div class='col-xs-12'><img src="./images/vss/lokkie.png" style="width:100%;"><div class='image-text-mobile'>Lokkestiiz</div></div>
-					</div>
-					<br />
-					<div class='row'>
-						<div class='col-xs-12'><div id="lokkie">00:00:00</div></div>
-					</div>
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-success start-2" style="width: 100%">Start</button></div>
-						<div class='col-xs-4'></div>
-					</div>
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-2" style="width: 100%">Stop</button></div>
-						<div class='col-xs-4'></div>
-					</div>
-					<br />
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-2" style="width: 100%">Reset</button></div>
-						<div class='col-xs-4'></div>
-					</div>
+				<br />
+				<div class='row'>
+					<div class='col-xs-12'><div id="adds1">00:00:00</div></div>
 				</div>
-
-				<!-- Adds 2 -->
-				<div class="item">
-					<div class='row'>
-						<div class='col-xs-12'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Add phase 2</div></div>
-					</div>
-					<br />
-					<div class='row'>
-						<div class='col-xs-12'><div id="adds2">00:00:00</div></div>
-					</div>
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-success start-3" style="width: 100%">Start</button></div>
-						<div class='col-xs-4'></div>
-					</div>
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-3" style="width: 100%">Stop</button></div>
-						<div class='col-xs-4'></div>
-					</div>
-					<br />
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-3" style="width: 100%">Reset</button></div>
-						<div class='col-xs-4'></div>
-					</div>
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-success start-1" style="width: 100%">Start</button></div>
+					<div class='col-xs-4'></div>
 				</div>
-
-				<!-- Yolna -->
-				<div class="item">
-					<div class='row'>
-						<div class='col-xs-12'><img src="./images/vss/yolna.jpg" style="width:100%;"><div class='image-text-mobile'>Yolnahkriin</div></div>
-					</div>
-					<br />
-					<div class='row'>
-						<div class='col-xs-12'><div id="yolna">00:00:00</div></div>
-					</div>
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-success start-4" style="width: 100%">Start</button></div>
-						<div class='col-xs-4'></div>
-					</div>
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-4" style="width: 100%">Stop</button></div>
-						<div class='col-xs-4'></div>
-					</div>
-					<br />
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-4" style="width: 100%">Reset</button></div>
-						<div class='col-xs-4'></div>
-					</div>
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-danger stop-1" style="width: 100%">Stop</button></div>
+					<div class='col-xs-4'></div>
 				</div>
-
-				<!-- Adds 3 -->
-				<div class="item">
-					<div class='row'>
-						<div class='col-xs-12'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Add phase 3</div></div>
-					</div>
-					<br />
-					<div class='row'>
-						<div class='col-xs-12'><div id="adds3">00:00:00</div></div>
-					</div>
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-success start-5" style="width: 100%">Start</button></div>
-						<div class='col-xs-4'></div>
-					</div>
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-5" style="width: 100%">Stop</button></div>
-						<div class='col-xs-4'></div>
-					</div>
-					<br />
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-5" style="width: 100%">Reset</button></div>
-						<div class='col-xs-4'></div>
-					</div>
-				</div>
-
-				<!-- Nahvi -->
-				<div class="item">
-					<div class='row'>
-						<div class='col-xs-12'><img src="./images/vss/nahvi.jpg" style="width:100%;"><div class='image-text-mobile'>Nahviintaas</div></div>
-					</div>
-					<br />
-					<div class='row'>
-						<div class='col-xs-12'><div id="nahvi">00:00:00</div></div>
-					</div>
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-success start-6" style="width: 100%">Start</button></div>
-						<div class='col-xs-4'></div>
-					</div>
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-6" style="width: 100%">Stop</button></div>
-						<div class='col-xs-4'></div>
-					</div>
-					<br />
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-6" style="width: 100%">Reset</button></div>
-						<div class='col-xs-4'></div>
-					</div>
-				</div>
-
-				<!-- Idle -->
-				<div class="item idle-item">
-					<div class='row'>
-						<div class='col-xs-12'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Idle time</div></div>
-					</div>
-					<br />
-					<div class='row'>
-						<div class='col-xs-12'><div id="idle">00:00:00</div></div>
-					</div>
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-success start-7" style="width: 100%">Start</button></div>
-						<div class='col-xs-4'></div>
-					</div>
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-7" style="width: 100%">Stop</button></div>
-						<div class='col-xs-4'></div>
-					</div>
-					<br />
-					<div class='row'>
-						<div class='col-xs-4'></div>
-						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-7" style="width: 100%">Reset</button></div>
-						<div class='col-xs-4'></div>
-					</div>
+				<br />
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-primary reset-1" style="width: 100%">Reset</button></div>
+					<div class='col-xs-4'></div>
 				</div>
 			</div>
-			<br />
-			<div class='row'>
-				<div class='col-xs-4'><button type="button" class="btn btn-all idle" style="width: 100%">Idle</button></div>
-				<div class='col-xs-4'></div>
-				<div class='col-xs-4'><button type="button" class="btn btn-all reset-all" style="width: 100%">Reset all</button></div>
-			</div>
-			<div class='row'>
-				<div id='total' style='font-size: 40px; text-align: center;'>Total time: 00:00:00</div>
+
+			<!-- Lokkie -->
+			<div>
+				<div class='row'>
+					<div class='col-xs-12 anchor'><img src="./images/vss/lokkie.png" style="width:100%;"><div class='image-text-mobile'>Lokkestiiz</div></div>
+				</div>
+				<br />
+				<div class='row'>
+					<div class='col-xs-12'><div id="lokkie">00:00:00</div></div>
+				</div>
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-success start-2" style="width: 100%">Start</button></div>
+					<div class='col-xs-4'></div>
+				</div>
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-danger stop-2" style="width: 100%">Stop</button></div>
+					<div class='col-xs-4'></div>
+				</div>
+				<br />
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-primary reset-2" style="width: 100%">Reset</button></div>
+					<div class='col-xs-4'></div>
+				</div>
 			</div>
 
-			<!-- Left and right controls -->
-			<a class="left carousel-control" href="#timer_carousel" data-slide="prev">
-				<span class="glyphicon glyphicon-chevron-left"></span>
-				<span class="sr-only">Previous</span>
-			</a>
-			<a class="right carousel-control" href="#timer_carousel" data-slide="next">
-				<span class="glyphicon glyphicon-chevron-right"></span>
-				<span class="sr-only">Next</span>
-			</a>
+			<!-- Adds 2 -->
+			<div>
+				<div class='row'>
+					<div class='col-xs-12 anchor'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Add phase 2</div></div>
+				</div>
+				<br />
+				<div class='row'>
+					<div class='col-xs-12'><div id="adds2">00:00:00</div></div>
+				</div>
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-success start-3" style="width: 100%">Start</button></div>
+					<div class='col-xs-4'></div>
+				</div>
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-danger stop-3" style="width: 100%">Stop</button></div>
+					<div class='col-xs-4'></div>
+				</div>
+				<br />
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-primary reset-3" style="width: 100%">Reset</button></div>
+					<div class='col-xs-4'></div>
+				</div>
+			</div>
+
+			<!-- Yolna -->
+			<div>
+				<div class='row'>
+					<div class='col-xs-12 anchor'><img src="./images/vss/yolna.jpg" style="width:100%;"><div class='image-text-mobile'>Yolnahkriin</div></div>
+				</div>
+				<br />
+				<div class='row'>
+					<div class='col-xs-12'><div id="yolna">00:00:00</div></div>
+				</div>
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-success start-4" style="width: 100%">Start</button></div>
+					<div class='col-xs-4'></div>
+				</div>
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-danger stop-4" style="width: 100%">Stop</button></div>
+					<div class='col-xs-4'></div>
+				</div>
+				<br />
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-primary reset-4" style="width: 100%">Reset</button></div>
+					<div class='col-xs-4'></div>
+				</div>
+			</div>
+
+			<!-- Adds 3 -->
+			<div>
+				<div class='row'>
+					<div class='col-xs-12 anchor'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Add phase 3</div></div>
+				</div>
+				<br />
+				<div class='row'>
+					<div class='col-xs-12'><div id="adds3">00:00:00</div></div>
+				</div>
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-success start-5" style="width: 100%">Start</button></div>
+					<div class='col-xs-4'></div>
+				</div>
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-danger stop-5" style="width: 100%">Stop</button></div>
+					<div class='col-xs-4'></div>
+				</div>
+				<br />
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-primary reset-5" style="width: 100%">Reset</button></div>
+					<div class='col-xs-4'></div>
+				</div>
+			</div>
+
+			<!-- Nahvi -->
+			<div>
+				<div class='row'>
+					<div class='col-xs-12 anchor'><img src="./images/vss/nahvi.jpg" style="width:100%;"><div class='image-text-mobile'>Nahviintaas</div></div>
+				</div>
+				<br />
+				<div class='row'>
+					<div class='col-xs-12'><div id="nahvi">00:00:00</div></div>
+				</div>
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-success start-6" style="width: 100%">Start</button></div>
+					<div class='col-xs-4'></div>
+				</div>
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-danger stop-6" style="width: 100%">Stop</button></div>
+					<div class='col-xs-4'></div>
+				</div>
+				<br />
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-primary reset-6" style="width: 100%">Reset</button></div>
+					<div class='col-xs-4'></div>
+				</div>
+			</div>
+
+			<!-- Idle -->
+			<div>
+				<div class='row'>
+					<div class='col-xs-12 anchor'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Idle time</div></div>
+				</div>
+				<br />
+				<div class='row'>
+					<div class='col-xs-12'><div id="idle">00:00:00</div></div>
+				</div>
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-success start-7" style="width: 100%">Start</button></div>
+					<div class='col-xs-4'></div>
+				</div>
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-danger stop-7" style="width: 100%">Stop</button></div>
+					<div class='col-xs-4'></div>
+				</div>
+				<br />
+				<div class='row'>
+					<div class='col-xs-4'></div>
+					<div class='col-xs-4'><button type="button" class="btn btn-primary reset-7" style="width: 100%">Reset</button></div>
+					<div class='col-xs-4'></div>
+				</div>
+			</div>
+		</div>
+		<br />
+		<div class='row'>
+			<div class='col-xs-4'><button type="button" class="btn btn-all idle" style="width: 100%">Idle</button></div>
+			<div class='col-xs-4'></div>
+			<div class='col-xs-4'><button type="button" class="btn btn-all reset-all" style="width: 100%">Reset all</button></div>
+		</div>
+		<br />
+		<div class='row'>
+			<div id='total' style='font-size: 40px; text-align: center;'>Total time: 00:00:00</div>
 		</div>
 	</div>
 </body>
