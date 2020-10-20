@@ -65,8 +65,18 @@ html, body {
 	padding-left: 2%;
 }
 
+.home-mobile p, h4, h5 {
+	padding-left: 2%;
+}
+
 .home-mobile {
-	height: 110%;
+	background-color: #F5F7FA;
+	width: 100%;
+	border-radius: 2%;
+	margin-bottom: 20px;
+	position: relative;
+	display: block;
+	overflow: auto;
 }
 
 .home-hr {
