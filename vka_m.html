@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/jpg" href="./images/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./node_modules/slick/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="./node_modules/slick/slick/slick-theme.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="./node_modules/easytimer/dist/easytimer.min.js"></script>
+    <script src="./node_modules/slick/slick/slick.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('.slider').slick({
+				centerMode: true,
+				slidesToShow: 1,
+				dots: true,
+				appendDots: $('.anchor'),
+				responsive: [
+					{
+						breakpoint: 768,
+						settings: {
+							arrows: true,
+							centerMode: true,
+							centerPadding: '40px',
+							slidesToShow: 1
+						}
+					}
+				]
+			});
+
+			const MAX = 13;
+			const MIN = 1;
+			const TIMER_COUNT = 7;
+
+			// set background
+			choice = Math.floor(Math.random() * (MAX - MIN)) + MIN + 1;
+			console.log(choice);
+			image_url = 'url(./images/backgrounds/' + choice.toString() + '.jpg' + ') no-repeat center center fixed';
+			$('.background').css('background', image_url);
+
+			function setup_timer(t, timers, div, start, stop, reset) {
+				t.addEventListener('secondsUpdated', function (e) {
+				$(div).html(t.getTimeValues().toString());
+					set_total_time(timers);
+				});
+
+				// // start
+				$(start).click(function () {
+					timers.forEach(function(timer) {
+						if (timer != t) {
+							timer.pause();
+						};
+					});
+				    t.start();
+				});
+
+				// stop
+				$(stop).click(function () {
+				    t.pause();
+				});
+
+				// reset
+				$(reset).click(function () {
+				    t.stop();
+				    $(div).html('00:00:00');
+				    set_total_time(timers);
+				});
+			};
+
+			function set_total_time(timers) {
+				total_h = total_m = total_s = 0;
+				timers.forEach(function(timer) {
+					total_h += timer.getTimeValues().hours;
+					total_m += timer.getTimeValues().minutes;
+					total_s += timer.getTimeValues().seconds;
+
+					if (total_s > 59) {
+						total_m += Math.floor(total_s / 60);
+						total_s = total_s % 60;
+					}
+				});
+
+				total_h = format_number(total_h);
+				total_m = format_number(total_m);
+				total_s = format_number(total_s);
+
+				$('#total').html('Total time: ' + total_h.toString() + ':' + total_m.toString() + ':' + total_s.toString());
+			};
+
+			function format_number(number) {
+				if (number < 10) {
+					return '0' + number.toString();
+				}
+				return number.toString();
+			};
+
+			timers = [];
+			timer_divs = ['#adds1', '#yandir', '#adds2', '#vrol', '#adds3', '#falgravn', '#idle'];
+
+			for (i = 0; i < TIMER_COUNT; i++) {
+				var timer = new easytimer.Timer();
+				timers.push(timer);
+			};
+
+			for (i = 0; i < TIMER_COUNT; i++) {
+				timer = timers[i];
+				div = timer_divs[i];
+
+				setup_timer(
+					timer,
+					timers,
+					div,
+					'.start-' + (i + 1).toString(),
+					'.stop-' + (i + 1).toString(),
+					'.reset-' + (i + 1).toString()
+				);
+			};
+
+			// reset all
+			$('.reset-all').click( function() {
+				timers.forEach(function(timer) {
+					timer.stop();
+				});
+				timer_divs.forEach(function(div) {
+					$(div).html('00:00:00');
+				});
+				set_total_time(timers);
+			});
+
+			// idle button
+			$('.idle').click(function() {
+				$('.slider').slick('slickGoTo', 6);
+				$('.start-7').click();
+			})
+		});
+	</script>
+</head>
+<body>
+	<div class='mobile-wrap'>
+		<!-- Navbar -->
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Raid Timers</a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="./vhof_m.html">Halls of Fabrication</a></li>
+						<li><a href="./vcr_m.html">Cloudrest</a></li>
+						<li><a href="./vss_m.html">Sunspire</a></li>
+						<li class="active"><a href="#">Kyne's Aegis <span class="sr-only">(current)</span></a></li>
+					</ul>
+				</div><!--/.nav-collapse -->
+			</div><!--/.container-fluid -->
+		</nav>
+
+		<!-- Content -->
+		<div class='container'>
+			<div class="background"></div>
+			<div class='mobile-header'>
+				<h3>Kyne's Aegis</h3>
+				<hr style='border-color: #434A54;'>
+			</div>
+
+			<div class="slider">
+				<!-- Adds 1 -->
+				<div>
+					<div class='row'>
+						<div class='col-xs-12 anchor'><img src="./images/vka/adds.png" style="width:100%;"><div class='image-text-mobile'>Add phase 1</div></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-12 time-wrapper'><div class='time' id="adds1">00:00:00</div></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-success start-1" style="width: 100%">Start</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-1" style="width: 100%">Stop</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-1" style="width: 100%">Reset</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+				</div>
+
+				<!-- Lokkie -->
+				<div>
+					<div class='row'>
+						<div class='col-xs-12 anchor'><img src="./images/vka/yandir.jpg" style="width:100%;"><div class='image-text-mobile'>Yandir</div></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-12 time-wrapper'><div class='time' id="yandir">00:00:00</div></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-success start-2" style="width: 100%">Start</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-2" style="width: 100%">Stop</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-2" style="width: 100%">Reset</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+				</div>
+
+				<!-- Adds 2 -->
+				<div>
+					<div class='row'>
+						<div class='col-xs-12 anchor'><img src="./images/vka/adds.png" style="width:100%;"><div class='image-text-mobile'>Add phase 2</div></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-12 time-wrapper'><div class='time' id="adds2">00:00:00</div></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-success start-3" style="width: 100%">Start</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-3" style="width: 100%">Stop</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-3" style="width: 100%">Reset</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+				</div>
+
+				<!-- Yolna -->
+				<div>
+					<div class='row'>
+						<div class='col-xs-12 anchor'><img src="./images/vka/vrol.jpg" style="width:100%;"><div class='image-text-mobile'>Captain Vrol</div></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-12 time-wrapper'><div class='time' id="vrol">00:00:00</div></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-success start-4" style="width: 100%">Start</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-4" style="width: 100%">Stop</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-4" style="width: 100%">Reset</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+				</div>
+
+				<!-- Adds 3 -->
+				<div>
+					<div class='row'>
+						<div class='col-xs-12 anchor'><img src="./images/vka/adds.png" style="width:100%;"><div class='image-text-mobile'>Add phase 3</div></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-12 time-wrapper'><div class='time' id="adds3">00:00:00</div></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-success start-5" style="width: 100%">Start</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-5" style="width: 100%">Stop</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-5" style="width: 100%">Reset</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+				</div>
+
+				<!-- Nahvi -->
+				<div>
+					<div class='row'>
+						<div class='col-xs-12 anchor'><img src="./images/vka/falgravn.jpg" style="width:100%;"><div class='image-text-mobile'>Lord Falgravn</div></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-12 time-wrapper'><div class='time' id="falgravn">00:00:00</div></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-success start-6" style="width: 100%">Start</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-6" style="width: 100%">Stop</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-6" style="width: 100%">Reset</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+				</div>
+
+				<!-- Idle -->
+				<div>
+					<div class='row'>
+						<div class='col-xs-12 anchor'><img src="./images/vka/adds.png" style="width:100%;"><div class='image-text-mobile'>Idle time</div></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-12 time-wrapper'><div class='time' id="idle">00:00:00</div></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-success start-7" style="width: 100%">Start</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-7" style="width: 100%">Stop</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-7" style="width: 100%">Reset</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+				</div>
+			</div>
+			<div class='row'>
+				<div class='col-xs-2'></div>
+				<div class='col-xs-4'><button type="button" class="btn btn-all idle" style="width: 100%">Idle</button></div>
+				<div class='col-xs-4'><button type="button" class="btn btn-all reset-all" style="width: 100%">Reset all</button></div>
+				<div class='col-xs-2'></div>
+			</div>
+			<br />
+			<div class='row'>
+				<div id='total' style='font-size: 36px; text-align: center;'>Total time: 00:00:00</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
