@@ -9,6 +9,18 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+		$(document).ready(function () {
+			const MAX = 13;
+			const MIN = 1;
+
+			// set background
+			choice = Math.floor(Math.random() * (MAX - MIN)) + MIN + 1;
+			console.log(choice);
+			image_url = 'url(./images/backgrounds/' + choice.toString() + '.jpg' + ') no-repeat center center fixed';
+			$('.background').css('background', image_url);
+		});
+	</script>
 <body>
 	<div class='mobile-wrap'>
 		<!-- Navbar -->
@@ -36,6 +48,107 @@
 
 		<!-- Content -->
 		<div class='container'>
+			<div class="background"></div>
+			<div class='mobile-header'>
+				<h3>Home</h3>
+				<hr style='border-color: #434A54;'>
+			</div>
+			<div class='home'>
+				<p style='padding-top: 2%;'>
+					<br />
+					<b><h4>Welcome to Raid Timers!</h4></b>
+					<hr class='home-hr'>
+				</p>
+					
+				<p>
+					<br />
+
+					Raid Timers is a utility for use during trials* in The Elder Scrolls Online. Consoles lack anything similar to PC's add-ons, and thus have no easy way to time raids --- this utility allows you to do just that. Need to know where your team can cut down for progress, titles, or records? Raid Timers can help!
+					
+					<br /><br />
+
+					Each trial has been split into its respective boss fights, with timers for each of the add phases in between. There is also a timer available for "idle time". During a prog, there's usually a decent amount of down-time between encounters as teams do things like discussing strategies, practicing gear-swaps, and more. You can use the idle timer to track this, allowing your encounters to be timed more accurately and giving you a more fine-grained breakdown of where your time is spent.
+				</p>
+
+				<br />
+
+				<h5>Functionality</h5>
+				<hr class='home-hr'>
+
+				<div class='functionality'>
+					<div class='row' style='padding-left: 2%;'>
+						<div class='col-xs-3'>
+							<p>
+								<button type="button" class="btn btn-success" style="width: 50%;">Start</button>
+								<br /><br />
+								Starting a timer will pause any active timers, and begin timing the new encounter.
+							</p>
+						</div>
+						<div class='col-xs-3'>
+							<p>
+								<button type="button" class="btn btn-danger" style="width: 50%;">Stop</button>
+								<br /><br />
+								Stop the current timer.
+							</p>
+						</div>
+						<div class='col-xs-3'>
+							<p>
+								<button type="button" class="btn btn-primary" style="width: 50%;">Reset</button>
+								<br /><br />
+								Reset the current timer to 0. You can use this to reset the timing of a section on a group wipe, for example.
+							</p>
+						</div>
+					</div>
+					<br />
+					<div class='row' style='padding-left: 2%;'>
+						<div class='col-xs-3'>
+							<p>
+								<button type="button" class="btn btn-all" style="width: 50%;">Idle</button>
+								<br /><br />
+								Pause any active timers, and start the idle timer. On mobile, this will skip the carousel to the 'Idle time' slide.
+							</p>
+						</div>
+						<div class='col-xs-3'>
+							<p>
+								<button type="button" class="btn btn-all" style="width: 50%;">Reset all</button>
+								<br /><br />
+								Reset all timers to 0.
+							</p>
+						</div>
+					</div>
+				</div>
+				<div style='position: absolute; bottom: 2%; padding-left: 2%;'>
+					<p style='font-size: 10px;'>
+						*Not all ESO trials are currently implemented. The timers available are for Halls of Fabrication, Cloudrest, Sunspire, and Kyne's Aegis.
+					</p>
+				</div>
+			</div>
+			<hr style='border-color: #434A54;'>
+			<div class='footer'>
+				<div class='row'>
+					<div class='col-xs-4 footer-col'>
+						RAID TIMERS
+						<hr class='footer-hr'>
+						<p style='font-size: 10px;'>
+							Thank you for using Raid Timers! If you have any suggestions, feel free to reach out on Discord.
+						</p>
+					</div>
+					<div class='col-xs-4 footer-col'>
+						JACK MKII
+						<hr class='footer-hr'>
+						<p>
+							@Jack MKII#5522
+						</p>
+						<p>
+							<a href='https://www.twitch.tv/jack_mkii' style='color:white;'><b>Twitch</b></a>
+						</p>
+					</div>
+					<div class='col-xs-4'></div>
+				</div>
+			</div>
+			<br />
+			<p class='copyright'>Copyright © Jack MKII 2020 &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; For The Fish 🐟</p>
+			<br />
 		</div>
 	</div>
 </body>
