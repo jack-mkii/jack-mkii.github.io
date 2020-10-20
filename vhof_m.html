@@ -40,7 +40,7 @@
 
 			const MAX = 13;
 			const MIN = 1;
-			const TIMER_COUNT = 7;
+			const TIMER_COUNT = 11;
 
 			// set background
 			choice = Math.floor(Math.random() * (MAX - MIN)) + MIN + 1;
@@ -105,7 +105,10 @@
 			};
 
 			timers = [];
-			timer_divs = ['#adds1', '#lokkie', '#adds2', '#yolna', '#adds3', '#nahvi', '#idle'];
+			timer_divs = [
+				'#adds1', '#hunter_killers', '#adds2', '#factotum', '#adds3',
+				'#archcustodian', '#adds4', '#triplets', '#adds5', '#assembly_general', '#idle'
+			];
 
 			for (i = 0; i < TIMER_COUNT; i++) {
 				var timer = new easytimer.Timer();
@@ -139,8 +142,8 @@
 
 			// idle button
 			$('.idle').click(function() {
-				$('.slider').slick('slickGoTo', 6);
-				$('.start-7').click();
+				$('.slider').slick('slickGoTo', 10);
+				$('.start-11').click();
 			})
 		});
 	</script>
@@ -161,9 +164,9 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="./vhof_m.html">Halls of Fabrication</a></li>
+						<li class="active"><a href="#">Halls of Fabrication <span class="sr-only">(current)</span></a></li>
 						<li><a href="#">Cloudrest</a></li>
-						<li class="active"><a href="#">Sunspire <span class="sr-only">(current)</span></a></li>
+						<li><a href="./vss_m.html">Sunspire</a></li>
 						<li><a href="#">Kyne's Aegis</a></li>
 					</ul>
 				</div><!--/.nav-collapse -->
@@ -174,7 +177,7 @@
 		<div class='container'>
 			<div class="background"></div>
 			<div class='mobile-header'>
-				<h3>Sunspire</h3>
+				<h3>Halls of Fabrication</h3>
 				<hr style='border-color: #434A54;'>
 			</div>
 
@@ -182,7 +185,7 @@
 				<!-- Adds 1 -->
 				<div>
 					<div class='row'>
-						<div class='col-xs-12 anchor'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Add phase 1</div></div>
+						<div class='col-xs-12 anchor'><img src="./images/vhof/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Add phase 1</div></div>
 					</div>
 					<br />
 					<div class='row'>
@@ -206,14 +209,14 @@
 					</div>
 				</div>
 
-				<!-- Lokkie -->
+				<!-- Hunter Killers -->
 				<div>
 					<div class='row'>
-						<div class='col-xs-12 anchor'><img src="./images/vss/lokkie.png" style="width:100%;"><div class='image-text-mobile'>Lokkestiiz</div></div>
+						<div class='col-xs-12 anchor'><img src="./images/vhof/hunter_killers.png" style="width:100%;"><div class='image-text-mobile'>Hunter Killers</div></div>
 					</div>
 					<br />
 					<div class='row'>
-						<div class='col-xs-12 time-wrapper'><div class='time' id="lokkie">00:00:00</div></div>
+						<div class='col-xs-12 time-wrapper'><div class='time' id="hunter_killers">00:00:00</div></div>
 					</div>
 					<div class='row'>
 						<div class='col-xs-4'></div>
@@ -236,7 +239,7 @@
 				<!-- Adds 2 -->
 				<div>
 					<div class='row'>
-						<div class='col-xs-12 anchor'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Add phase 2</div></div>
+						<div class='col-xs-12 anchor'><img src="./images/vhof/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Add phase 2</div></div>
 					</div>
 					<br />
 					<div class='row'>
@@ -260,14 +263,14 @@
 					</div>
 				</div>
 
-				<!-- Yolna -->
+				<!-- Pinnacle Factotum -->
 				<div>
 					<div class='row'>
-						<div class='col-xs-12 anchor'><img src="./images/vss/yolna.jpg" style="width:100%;"><div class='image-text-mobile'>Yolnahkriin</div></div>
+						<div class='col-xs-12 anchor'><img src="./images/vhof/factotum.png" style="width:100%;"><div class='image-text-mobile'>Pinnacle Factotum</div></div>
 					</div>
 					<br />
 					<div class='row'>
-						<div class='col-xs-12 time-wrapper'><div class='time' id="yolna">00:00:00</div></div>
+						<div class='col-xs-12 time-wrapper'><div class='time' id="factotum">00:00:00</div></div>
 					</div>
 					<div class='row'>
 						<div class='col-xs-4'></div>
@@ -290,7 +293,7 @@
 				<!-- Adds 3 -->
 				<div>
 					<div class='row'>
-						<div class='col-xs-12 anchor'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Add phase 3</div></div>
+						<div class='col-xs-12 anchor'><img src="./images/vhof/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Add phase 3</div></div>
 					</div>
 					<br />
 					<div class='row'>
@@ -314,14 +317,14 @@
 					</div>
 				</div>
 
-				<!-- Nahvi -->
+				<!-- Archcustodian -->
 				<div>
 					<div class='row'>
-						<div class='col-xs-12 anchor'><img src="./images/vss/nahvi.jpg" style="width:100%;"><div class='image-text-mobile'>Nahviintaas</div></div>
+						<div class='col-xs-12 anchor'><img src="./images/vhof/archcustodian.png" style="width:100%;"><div class='image-text-mobile'>Archcustodian</div></div>
 					</div>
 					<br />
 					<div class='row'>
-						<div class='col-xs-12 time-wrapper'><div class='time' id="nahvi">00:00:00</div></div>
+						<div class='col-xs-12 time-wrapper'><div class='time' id="archcustodian">00:00:00</div></div>
 					</div>
 					<div class='row'>
 						<div class='col-xs-4'></div>
@@ -341,14 +344,14 @@
 					</div>
 				</div>
 
-				<!-- Idle -->
+				<!-- Adds 4 -->
 				<div>
 					<div class='row'>
-						<div class='col-xs-12 anchor'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Idle time</div></div>
+						<div class='col-xs-12 anchor'><img src="./images/vhof/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Add phase 4</div></div>
 					</div>
 					<br />
 					<div class='row'>
-						<div class='col-xs-12 time-wrapper'><div class='time' id="idle">00:00:00</div></div>
+						<div class='col-xs-12 time-wrapper'><div class='time' id="adds4">00:00:00</div></div>
 					</div>
 					<div class='row'>
 						<div class='col-xs-4'></div>
@@ -364,6 +367,114 @@
 					<div class='row'>
 						<div class='col-xs-4'></div>
 						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-7" style="width: 100%">Reset</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+				</div>
+
+				<!-- Triplets -->
+				<div>
+					<div class='row'>
+						<div class='col-xs-12 anchor'><img src="./images/vhof/triplets.png" style="width:100%;"><div class='image-text-mobile'>Triplets</div></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-12 time-wrapper'><div class='time' id="triplets">00:00:00</div></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-success start-8" style="width: 100%">Start</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-8" style="width: 100%">Stop</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-8" style="width: 100%">Reset</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+				</div>
+
+				<!-- Adds 5 -->
+				<div>
+					<div class='row'>
+						<div class='col-xs-12 anchor'><img src="./images/vhof/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Add phase 5</div></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-12 time-wrapper'><div class='time' id="adds5">00:00:00</div></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-success start-9" style="width: 100%">Start</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-9" style="width: 100%">Stop</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-9" style="width: 100%">Reset</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+				</div>
+
+				<!-- Assembly General -->
+				<div>
+					<div class='row'>
+						<div class='col-xs-12 anchor'><img src="./images/vhof/assembly_general.png" style="width:100%;"><div class='image-text-mobile'>Assembly General</div></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-12 time-wrapper'><div class='time' id="assembly_general">00:00:00</div></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-success start-10" style="width: 100%">Start</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-10" style="width: 100%">Stop</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-10" style="width: 100%">Reset</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+				</div>
+
+				<!-- Idle -->
+				<div>
+					<div class='row'>
+						<div class='col-xs-12 anchor'><img src="./images/vhof/adds.jpg" style="width:100%;"><div class='image-text-mobile'>Idle time</div></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-12 time-wrapper'><div class='time' id="idle">00:00:00</div></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-success start-11" style="width: 100%">Start</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-danger stop-11" style="width: 100%">Stop</button></div>
+						<div class='col-xs-4'></div>
+					</div>
+					<br />
+					<div class='row'>
+						<div class='col-xs-4'></div>
+						<div class='col-xs-4'><button type="button" class="btn btn-primary reset-11" style="width: 100%">Reset</button></div>
 						<div class='col-xs-4'></div>
 					</div>
 				</div>
