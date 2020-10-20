@@ -104,20 +104,29 @@
 </head>
 <body>
 	<br />
-	<div id='title-header'>
-		<div class='col-xs-2'><h3 class='title'>Raid Timers</h3><hr></div>
-		<div class='col-xs-2'></div>
-		<a href="./vhof.html">
-			<div class='col-xs-2'><h3 class='raid-title'>Halls of Fabrication</h3></div>
-		</a>
-		<div class='col-xs-2'><h3 class='raid-title selected-title'>Cloudrest</h3></div>
-		<a href="./index.html">
-			<div class='col-xs-2'><h3 class='raid-title'>Sunspire</h3></div>
-		</a>
-		<a href="./vka.html">
-			<div class='col-xs-2'><h3 class='raid-title'>Kyne's Aegis</h3></div>
-		</a>
-	</div>
+	<!-- Navbar -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="./index.html">Raid Timers</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="./vhof.html">Halls of Fabrication</a></li>
+					<li class="active"><a href="#">Cloudrest <span class="sr-only">(current)</span></a></li>
+					<li><a href="./index.html">Sunspire</a></li>
+					<li><a href="./vka.html">Kyne's Aegis</a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div><!--/.container-fluid -->
+	</nav>
+
 	<div class="container web">
 		<div class="background"></div>
 		<div class="vcr-body">
