@@ -58,6 +58,15 @@ html, body {
 	border-bottom: solid thin white;
 }
 
+.home-active {
+	background-color: black;
+	color: white !important;
+}
+
+.home-active:hover {
+	background-color: black !important;
+}
+
 /* GENERAL */
 
 .mobile-wrap {
