@@ -96,6 +96,11 @@ html, body {
 	font-size: 10px;
 }
 
+.func-col {
+	padding-left: 2%;
+	padding-right: 4%;
+}
+
 /* TEXT FORMATTING */
 
 .image-text {
