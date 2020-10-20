@@ -65,7 +65,7 @@ html, body {
 	padding-left: 2%;
 }
 
-.home-mobile p, h4, h5 {
+.home-mobile p, h4, h5, button {
 	padding-left: 2%;
 }
 
@@ -159,6 +159,10 @@ html, body {
 .copyright {
 	text-align: center;
 	padding-bottom: 1%;
+}
+
+.col-xs-4 p {
+	font-size: 10px;
 }
 
 #adds1, #adds2, #adds3, #adds4, #adds5, #lokkie, #yolna, #nahvi, #yandir, #vrol, #falgravn,
