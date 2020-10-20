@@ -24,8 +24,8 @@
 
 			function setup_timer(t, timers, div, start, stop, reset) {
 				t.addEventListener('secondsUpdated', function (e) {
-			    	$(div).html(t.getTimeValues().toString());
-			    	set_total_time(timers);
+				$(div).html(t.getTimeValues().toString());
+				set_total_time(timers);
 				});
 
 				// // start
@@ -53,22 +53,22 @@
 
 			function set_total_time(timers) {
 				total_h = total_m = total_s = 0;
-		    	timers.forEach(function(timer) {
-		    		total_h += timer.getTimeValues().hours;
-		    		total_m += timer.getTimeValues().minutes;
-		    		total_s += timer.getTimeValues().seconds;
+			timers.forEach(function(timer) {
+				total_h += timer.getTimeValues().hours;
+				total_m += timer.getTimeValues().minutes;
+				total_s += timer.getTimeValues().seconds;
 
-		    		if (total_s > 59) {
-		    			total_m += Math.floor(total_s / 60);
-		    			total_s = total_s % 60;
-		    		}
-		    	});
+				if (total_s > 59) {
+					total_m += Math.floor(total_s / 60);
+					total_s = total_s % 60;
+				}
+			});
 
-		    	total_h = format_number(total_h);
-		    	total_m = format_number(total_m);
-		    	total_s = format_number(total_s);
+			total_h = format_number(total_h);
+			total_m = format_number(total_m);
+			total_s = format_number(total_s);
 
-		    	$('#total').html('Total time: ' + total_h.toString() + ':' + total_m.toString() + ':' + total_s.toString());
+			$('#total').html('Total time: ' + total_h.toString() + ':' + total_m.toString() + ':' + total_s.toString());
 			};
 
 			function format_number(number) {
@@ -79,7 +79,7 @@
 			};
 
 			timers = [];
-			timer_divs = ['#adds1', '#yandir', '#adds2', '#vrol', '#adds3', '#falgravn', '#idle'];
+			timer_divs = ['#adds1', '#lokkie', '#adds2', '#yolna', '#adds3', '#nahvi', '#idle'];
 
 			for (i = 0; i < TIMER_COUNT; i++) {
 				var timer = new easytimer.Timer();
@@ -120,8 +120,8 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="./vhof.html">Halls of Fabrication</a></li>
 					<li><a href="./vcr.html">Cloudrest</a></li>
-					<li><a href="./vss.html">Sunspire</a></li>
-					<li class="active"><a href="#">Kyne's Aegis <span class="sr-only">(current)</span></a></li>
+					<li class="active"><a href="#">Sunspire <span class="sr-only">(current)</span></a></li>
+					<li><a href="./vka.html">Kyne's Aegis</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div><!--/.container-fluid -->
@@ -129,27 +129,27 @@
 
 	<div class="container web">
 		<div class="background"></div>
-		<h3>Kyne's Aegis</h3>
+		<h3>Sunspire</h3>
 
 		<br />
 		<hr style='border-color: #434A54;'>
 		<div class='row'>
-			<div class='col-xs-2'><img src="./images/vka/adds.png" style="width:100%;"><div class='image-text'>Add phase 1</div></div>
-			<div class='col-xs-2'><img src="./images/vka/yandir.jpg" class='b-image'><div class='image-text'>Yandir</div></div>
-			<div class='col-xs-2'><img src="./images/vka/adds.png" style="width:100%;"><div class='image-text'>Add phase 2</div></div>
-			<div class='col-xs-2'><img src="./images/vka/vrol.jpg" class='b-image'><div class='image-text'>Captain Vrol</div></div>
-			<div class='col-xs-2'><img src="./images/vka/adds.png" style="width:100%;"><div class='image-text'>Add phase 3</div></div>
-			<div class='col-xs-2'><img src="./images/vka/falgravn.jpg" class='b-image'><div class='image-text'>Lord Falgravn</div></div>
+			<div class='col-xs-2'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text'>Add phase 1</div></div>
+			<div class='col-xs-2'><img src="./images/vss/lokkie.png" class='b-image'><div class='image-text'>Lokkestiiz</div></div>
+			<div class='col-xs-2'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text'>Add phase 2</div></div>
+			<div class='col-xs-2'><img src="./images/vss/yolna.jpg" class='b-image'><div class='image-text'>Yolnahkriin</div></div>
+			<div class='col-xs-2'><img src="./images/vss/adds.jpg" style="width:100%;"><div class='image-text'>Add phase 3</div></div>
+			<div class='col-xs-2'><img src="./images/vss/nahvi.jpg" class='b-image'><div class='image-text'>Nahviintaas</div></div>
 		</div>
 		<hr style='border-color: #434A54;'>
 		<br />
 		<div class='row'>
 			<div class='col-xs-2'><div id="adds1">00:00:00</div></div>
-			<div class='col-xs-2'><div id="yandir">00:00:00</div></div>
+			<div class='col-xs-2'><div id="lokkie">00:00:00</div></div>
 			<div class='col-xs-2'><div id="adds2">00:00:00</div></div>
-			<div class='col-xs-2'><div id="vrol">00:00:00</div></div>
+			<div class='col-xs-2'><div id="yolna">00:00:00</div></div>
 			<div class='col-xs-2'><div id="adds3">00:00:00</div></div>
-			<div class='col-xs-2'><div id="falgravn">00:00:00</div></div>
+			<div class='col-xs-2'><div id="nahvi">00:00:00</div></div>
 		</div>
 		<br />
 		<div class='row'>
@@ -189,7 +189,7 @@
 		</div>
 		<br />
 		<div class='row'>
-			<div id='total' style='font-size: 50px; text-align: center;'>Total time: 00:00:00</div>
+			<div id='total' style='font-size: 6.3vh; text-align: center;'>Total time: 00:00:00</div>
 		</div>
 	</div>
 </body>
