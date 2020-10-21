@@ -169,6 +169,11 @@ html, body {
 	line-height: 1;
 }
 
+.col-xs-6 p {
+	font-size: 10px;
+	line-height: 1;
+}
+
 #adds1, #adds2, #adds3, #adds4, #adds5, #lokkie, #yolna, #nahvi, #yandir, #vrol, #falgravn,
 #hunter_killers, #factotum, #archcustodian, #triplets, #assembly_general, #zmaja, #idle {
 	text-align: center;
