@@ -38,6 +38,7 @@ html, body {
 
 .mobile-wrap {
 	padding-top: 50px;
+	width: 100%;
 }
 
 .container {
@@ -178,6 +179,18 @@ html, body {
 #hunter_killers, #factotum, #archcustodian, #triplets, #assembly_general, #zmaja, #idle {
 	text-align: center;
 	font-size: 36px;
+}
+
+/* SLIDER */
+
+.slick-prev {
+	margin-left: 5%;
+	z-index: 1;
+}
+
+.slick-next {
+	margin-right: 5%;
+	z-index: 1;
 }
 
 /* BUTTONS */
