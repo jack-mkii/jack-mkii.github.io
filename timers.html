@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/jpg" href="./images/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="./node_modules/easytimer/dist/easytimer.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			const MAX = 13;
+			const MIN = 1;
+			const TIMER_COUNT = 3;
+
+			var audio = new Audio('sound/beep.wav');
+
+			// set background
+			choice = Math.floor(Math.random() * (MAX - MIN)) + MIN + 1;
+			image_url = 'url(./images/backgrounds/' + choice.toString() + '.jpg' + ') no-repeat center center fixed';
+			$('.background').css('background', image_url);
+
+			timer_map = {
+				'oax': [30, 'Charged'],
+				'bahsei': [60, 'Complete'],
+				'suns': [25, 'Down']
+			};
+
+			function get_percentage(value, btn) {
+				max = parseInt(timer_map[btn.split('-s')[0].split('#')[1]]);
+				return 100 - Math.round(value.seconds*100/max, 2);
+			}
+
+			function setup_countdown(t, timers, btn, reset, div, selector, prg_selector) {
+				$(prg_selector).css('height', $(selector).height());
+
+				t.addEventListener('secondsUpdated', function (e) {
+				    $(selector).html(t.getTimeValues().toString());
+				    if (t.getTimeValues().seconds < 4) {
+				    	audio.play();
+				    }
+				    $(prg_selector).css('width', `${get_percentage(t.getTimeValues(), btn)}%`);
+				});
+
+				t.addEventListener('targetAchieved', function (e) {
+				    $(selector).css('color', '#7D0E19');
+				});
+
+				$(btn).click(function () {
+					$(btn).addClass('mech-active');
+					$(prg_selector).css('width', '0%');
+
+					t.stop();
+
+					values = timer_map[btn.split('-s')[0].split('#')[1]];
+					time_string = '00:00:' + values[0];
+					$(selector).html(time_string);
+
+					t.start({countdown: true, startValues: {seconds: parseInt(values[0])}});
+
+					$(selector).css('color', '');
+					$(btn).html(values[1]);
+				});
+
+				$(reset).click(function () {
+					$(prg_selector).css('width', '0%');
+
+					t.stop();
+
+					values = timer_map[btn.split('-s')[0].split('#')[1]];
+					time_string = '00:00:' + values[0];
+					$(selector).html(time_string);
+					$(selector).css('color', '');
+					
+					$(btn).html('Start');
+					$(btn).removeClass('mech-active');
+				});
+			};
+
+			timers = [];
+			start_btns = ['#oax-s', '#bahsei-s', '#suns-s'];
+			reset_btns = ['#oax-r', '#bahsei-r', '#suns-r'];
+			timer_divs = ['#oax-countdown', '#bahsei-countdown', '#suns-countdown'];
+
+			for (i = 0; i < TIMER_COUNT; i++) {
+				var timer = new easytimer.Timer();
+				timers.push(timer);
+			};
+
+			for (i = 0; i < start_btns.length; i++) {
+				var new_timer = new easytimer.Timer();
+
+				btn = start_btns[i];
+				reset = reset_btns[i];
+				div = timer_divs[i];
+				timer = timers[i];
+				class_selector = div + ' .countdown-values';
+				prg_selector = div + ' .progress-bar';
+
+				setup_countdown(timer, timers, btn, reset, div, class_selector, prg_selector);
+			}
+		});
+	</script>
+</head>
+<body>
+	<br />
+	<!-- Navbar -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="./index.html">Raid Timers</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href="#">Mech Timers <span class="sr-only">(current)</span></a></li>
+					<li><a href="./vhof.html">Halls of Fabrication</a></li>
+					<li><a href="./vcr.html">Cloudrest</a></li>
+					<li><a href="./vss.html">Sunspire</a></li>
+					<li><a href="./vka.html">Kyne's Aegis</a></li>
+					<li><a href="./vrg.html">Rockgrove</a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div><!--/.container-fluid -->
+	</nav>
+
+	<div class="container web">
+		<div class="background"></div>
+		<div class="vcr-body">
+			<h3>Mech Timers</h3>
+			<hr style='border-color: #434A54;'>
+
+			<!-- Rockgrove -->
+			<div class='row'>
+				<div class="col-xs-4"></div>
+				<div class="col-xs-4">
+					<h3 style="text-align: center;">Rockgrove</h3>
+					<hr style='border-color: #434A54;'>
+				</div>
+				<div class="col-xs-4"></div>
+			</div>
+
+			<div class='row'>
+				<div class="col-xs-5">
+					<h4 style="text-align: center;">Oaxiltso - charges</h4>
+					<br />
+					<div class="countdown" id="oax-countdown">
+						<div class='progress-bar'></div>
+					    <div class="countdown-values">00:00:30</div>
+					    <br />
+					    <div class='row'>
+					    	<div id='oax-s' class="col-xs-6 mech-btn">Start</div>
+					    	<div id='oax-r' class="col-xs-6 mech-btn">Reset</div>
+					    </div>
+					</div>
+				</div>
+				<div class='col-xs-2'></div>
+				<div class="col-xs-5">
+					<h4 style="text-align: center;">Bahsei - portals</h4>
+					<br />
+					<div class="countdown" id="bahsei-countdown">
+						<div class='progress-bar'></div>
+					    <div class="countdown-values">00:00:60</div>
+					    <br />
+					    <div class='row'>
+					    	<div id='bahsei-s' class="col-xs-6 mech-btn">Start</div>
+					    	<div id='bahsei-r' class="col-xs-6 mech-btn">Reset</div>
+					    </div>
+					</div>
+				</div>
+			</div>
+
+			<br />
+			<hr style='border-color: #434A54; opacity: 50%;'>
+			<br />
+
+			<div class='row'>
+				<div class="col-xs-5">
+					<h4 style="text-align: center;">Bahsei - suns</h4>
+					<br />
+					<div class="countdown" id="suns-countdown">
+						<div class='progress-bar'></div>
+					    <div class="countdown-values">00:00:25</div>
+					    <br />
+					    <div class='row'>
+					    	<div id='suns-s' class="col-xs-6 mech-btn">Start</div>
+					    	<div id='suns-r' class="col-xs-6 mech-btn">Reset</div>
+					    </div>
+					</div>
+				</div>
+				<div class='col-xs-7'></div>
+			</div>
+
+			<br />
+			<br />
+			<br />
+
+			<!-- vAS -->
+			<div class='row'>
+				<div class="col-xs-4"></div>
+				<div class="col-xs-4">
+					<h3 style="text-align: center;">Asylum Sanctorium</h3>
+					<hr style='border-color: #434A54;'>
+				</div>
+				<div class="col-xs-4"></div>
+			</div>
+
+			<div class='row'>
+				<div class="col-xs-6">
+					<h4 style="text-align: center;">Llothis</h4>
+					<h6 style='text-align: center;'>Coming soon!</h6>
+				</div>
+				<div class="col-xs-6">
+					<h4 style="text-align: center;">Felms</h4>
+					<h6 style='text-align: center;'>Coming soon!</h6>
+				</div>
+			</div>
+
+			<br />
+			
+			<hr style='border-color: #434A54;'>
+			<div class='footer'>
+				<div class='row'>
+					<div class='col-xs-4 footer-col'>
+						RAID TIMERS
+						<hr class='footer-hr'>
+						<p style='font-size: 10px;'>
+							Thank you for using Raid Timers! If you have any suggestions, feel free to reach out on Discord.
+						</p>
+					</div>
+					<div class='col-xs-4 footer-col'>
+						JACK MKII
+						<hr class='footer-hr'>
+						<p>
+							@Jack MKII#5522
+						</p>
+						<p>
+							<a href='https://www.twitch.tv/jack_mkii' style='color:white;'><b>Twitch</b></a>
+						</p>
+					</div>
+					<div class='col-xs-4'></div>
+				</div>
+			</div>
+			<br />
+			<p class='copyright'>Copyright © Jack MKII 2020 &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; For The Fish 🐟</p>
+			<br />
+		</div>
+	</div>
+</body>
+</html>

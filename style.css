@@ -91,6 +91,11 @@ html, body {
 
 .footer {
 	color: white;
+	margin-top: -30px;
+}
+
+.footer-m {
+	color: white;
 }
 
 .footer-hr {
@@ -194,6 +199,15 @@ html, body {
 	z-index: 1;
 }
 
+/* MECH TIMERS */
+.countdown {
+	text-align: center;
+}
+
+.countdown-values {
+	font-size: 30px;
+}
+
 /* BUTTONS */
 
 .btn-idle {
@@ -229,6 +243,85 @@ html, body {
 .btn-all {
 	color: white;
 	background-color: #434A54;
+}
+
+.mech-btn {
+	margin: 5px;
+	padding: 5px;
+	background-color: #4A89DC;
+	border-radius: 4px;
+	height: 30px;
+	width: 100%;
+	color: white;
+}
+
+.mech-btn:hover {
+	background-color: #5D9CEC;
+	color: white;
+}
+
+.mech-btn:active {
+	background-color: #4A89DC;
+	border: 1px solid #5D9CEC;
+}
+
+.mech-active {
+	background-color: #DA4453 !important;
+}
+
+.mech-active:hover {
+	background-color: #ED5565 !important;
+}
+
+.mech-active:active {
+	background-color: #DA4453 !important;
+	border: 1px solid #ED5565;
+}
+
+.mech-btn-m {
+	margin: 5px;
+	padding: 5px;
+	background-color: #4A89DC;
+	border-radius: 4px;
+	height: 30px;
+	color: white;
+	text-align: center;
+}
+
+.mech-btn-m:hover {
+	background-color: #5D9CEC;
+	color: white;
+}
+
+.mech-btn-m:active {
+	background-color: #4A89DC;
+	border: 1px solid #5D9CEC;
+}
+
+.mech-active-m {
+	background-color: #DA4453 !important;
+}
+
+.mech-active-m:hover {
+	background-color: #ED5565 !important;
+}
+
+.mech-active-m:active {
+	background-color: #DA4453 !important;
+	border: 1px solid #ED5565;
+}
+
+/* PROGRESS BAR */
+.progress-bar {
+	margin-left: -2%;
+	position: absolute;
+	width: 0px;
+	background-color: #DA4453;
+	opacity: 40%;
+}
+
+.prog-m {
+	margin-left: -1.5% !important;
 }
 
 /* VHOF SPECIFIC */
