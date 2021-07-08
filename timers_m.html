@@ -17,9 +17,10 @@
 		$(document).ready(function () {
 			const MAX = 13;
 			const MIN = 1;
-			const TIMER_COUNT = 3;
+			const TIMER_COUNT = 6;
 
 			var audio = new Audio('sound/beep.wav');
+			var vas_divs = ['#llothis-countdown', '#felms-countdown'];
 
 			// set background
 			choice = Math.floor(Math.random() * (MAX - MIN)) + MIN + 1;
@@ -29,52 +30,125 @@
 			timer_map = {
 				'oax': [30, 'Charged'],
 				'bahsei': [60, 'Complete'],
-				'suns': [25, 'Down']
+				'suns': [25, 'Down'],
+				'vrol': [45, 'Down'],
+				'llothis': [180, 'Down'],
+				'felms': [180, 'Down']
 			};
 
-			function get_percentage(value, btn) {
-				max = parseInt(timer_map[btn.split('-s')[0].split('#')[1]]);
-				return 100 - Math.round(value.seconds*100/max, 2);
+			// anchor scrolls
+			function scrollToAnchor(aid){
+			    var aTag = $(aid)
+			    $('html,body').animate({scrollTop: aTag.offset().top - $('.navbar').height() - 10}, 'slow');
 			}
 
+			// helpers
+			function get_percentage(value, btn, div) {
+				if (vas_divs.includes(div)) {
+					if ($(btn).html() == 'Down') {
+						max = 180;
+					} else {
+						max = 45;
+					}
+				} else {
+					max = parseInt(timer_map[btn.split('-s')[0].split('#')[1]]);
+				}
+
+				numerator = (value.minutes*60) + value.seconds;
+				return 100 - Math.round(numerator*100/max, 2);
+			}
+
+			function create_time_string(value) {
+				minutes = Math.floor(value/60);
+				seconds = value % 60;
+				if (seconds == 0) {
+					time_string = `00:0${minutes}:00`
+				} else {
+					time_string = `00:0${minutes}:${seconds}`
+				}
+
+				return time_string;
+			}
+
+			function process_vas_timer(div, btn, t, selector) {
+				prg_selector = div + ' .progress-bar';
+
+				if ($(btn).html() =='Down') {
+					$(btn).addClass('disabled');
+					$(btn).html('Respawning...');
+
+					$(selector).html('00:00:45');
+					$(prg_selector).css('width', 0);
+
+					t.stop();
+					t.start({countdown: true, startValues: {seconds: 45}});
+				} else if ($(btn).html() =='Respawning...') {
+					$(btn).removeClass('disabled');
+					$(btn).html('Down');
+					$(selector).css('color', '');
+
+					$(selector).html('00:03:00');
+					$(prg_selector).css('width', 0);
+
+					t.stop();
+					t.start({countdown: true, startValues: {seconds: 180}});
+				}
+			}
+
+			// timer setup
 			function setup_countdown(t, timers, btn, reset, div, selector, prg_selector) {
 				$(prg_selector).css('height', $(selector).height());
 
 				t.addEventListener('secondsUpdated', function (e) {
 				    $(selector).html(t.getTimeValues().toString());
-				    if (t.getTimeValues().seconds < 4) {
+				    $(prg_selector).css('width', `${get_percentage(t.getTimeValues(), btn, div)}%`);
+
+				    if (t.getTimeValues().seconds < 4 && t.getTimeValues().minutes == 0) {
 				    	audio.play();
 				    }
-				    $(prg_selector).css('width', `${get_percentage(t.getTimeValues(), btn)}%`);
+				    if (vas_divs.includes(div) && t.getTimeValues().seconds == 30 && t.getTimeValues().minutes == 0) {
+				    	audio.play();
+				    }
 				});
 
 				t.addEventListener('targetAchieved', function (e) {
 				    $(selector).css('color', '#7D0E19');
+				    if (vas_divs.includes(div)) {
+				    	process_vas_timer(div, btn, t, selector);
+				    }
 				});
 
 				$(btn).click(function () {
-					$(btn).addClass('mech-active');
-					$(prg_selector).css('width', '0%');
+					if (vas_divs.includes(div) && $(btn).html() != 'Start') {
+				    	process_vas_timer(div, btn, t, selector);
+				    } else {
+						$(btn).addClass('mech-active');
+						$(prg_selector).css('width', '0%');
 
-					t.stop();
+						t.stop();
 
-					values = timer_map[btn.split('-s')[0].split('#')[1]];
-					time_string = '00:00:' + values[0];
-					$(selector).html(time_string);
+						values = timer_map[btn.split('-s')[0].split('#')[1]];
+						time_string = create_time_string(values[0]);
+						$(selector).html(time_string);
 
-					t.start({countdown: true, startValues: {seconds: parseInt(values[0])}});
+						t.start({countdown: true, startValues: {seconds: parseInt(values[0])}});
 
-					$(selector).css('color', '');
-					$(btn).html(values[1]);
+						$(selector).css('color', '');
+						$(btn).html(values[1]);
+					}
 				});
 
 				$(reset).click(function () {
+					if (vas_divs.includes(div)) {
+				    	$(btn).removeClass('disabled');
+				    }
+
 					$(prg_selector).css('width', '0%');
 
 					t.stop();
 
 					values = timer_map[btn.split('-s')[0].split('#')[1]];
-					time_string = '00:00:' + values[0];
+					time_string = create_time_string(values[0]);
 					$(selector).html(time_string);
 					$(selector).css('color', '');
 
@@ -84,9 +158,9 @@
 			};
 
 			timers = [];
-			start_btns = ['#oax-s', '#bahsei-s', '#suns-s'];
-			reset_btns = ['#oax-r', '#bahsei-r', '#suns-r'];
-			timer_divs = ['#oax-countdown', '#bahsei-countdown', '#suns-countdown'];
+			start_btns = ['#oax-s', '#bahsei-s', '#suns-s', '#vrol-s', '#llothis-s', '#felms-s'];
+			reset_btns = ['#oax-r', '#bahsei-r', '#suns-r', '#vrol-r', '#llothis-r', '#felms-r'];
+			timer_divs = ['#oax-countdown', '#bahsei-countdown', '#suns-countdown', '#vrol-countdown', '#llothis-countdown', '#felms-countdown'];
 
 			for (i = 0; i < TIMER_COUNT; i++) {
 				var timer = new easytimer.Timer();
@@ -105,6 +179,18 @@
 
 				setup_countdown(timer, timers, btn, reset, div, class_selector, prg_selector);
 			}
+
+			$('#vrg').click(function () {
+				scrollToAnchor('#rockgrove');
+			});
+
+			$('#vas').click(function () {
+				scrollToAnchor('#asylum');
+			});
+
+			$('#vka').click(function () {
+				scrollToAnchor('#kyne');
+			});
 		});
 	</script>
 </head>
@@ -143,8 +229,23 @@
 				<hr style='border-color: #434A54;'>
 			</div>
 
-			<!-- Rockgrove -->
+			<!-- Menu selection -->
 			<div class='row'>
+				<div class='col-xs-2'></div>
+				<div class='col-xs-8 click-menu'>
+					<a href='#rockgrove'><button type="button" id='vrg' class="btn btn-idle menu-btn-m">Rockgrove</button></a>
+					<a href='#asylum'><button type="button" id='vas' class="btn btn-idle menu-btn-m">Asylum Sanctorium</button></a>
+					<a href='#kyne'><button type="button" id='vka' class="btn btn-idle menu-btn-m">Kyne's Aegis</button></a>
+				</div>
+				<div class='col-xs-2'></div>
+			</div>
+
+			<br />
+			<hr style='border-color: #434A54; opacity: 50%;'>
+			<br />
+
+			<!-- Rockgrove -->
+			<div class='row' id='rockgrove'>
 				<div class="col-xs-3"></div>
 				<div class="col-xs-6">
 					<h3 style="text-align: center;">Rockgrove</h3>
@@ -184,7 +285,7 @@
 					<br />
 					<div class="countdown" id="bahsei-countdown">
 						<div class='progress-bar prog-m'></div>
-					    <div class="countdown-values">00:00:60</div>
+					    <div class="countdown-values">00:01:00</div>
 					    <br />
 					    <div class='row'>
 					    	<div id='bahsei-s' class="col-xs-6 mech-btn">Start</div>
@@ -223,7 +324,7 @@
 			<br />
 
 			<!-- vAS -->
-			<div class='row'>
+			<div class='row' id='asylum'>
 				<div class="col-xs-3"></div>
 				<div class="col-xs-6">
 					<h3 style="text-align: center;">Asylum Sanctorium</h3>
@@ -236,7 +337,16 @@
 				<div class='col-xs-2'></div>
 				<div class="col-xs-8">
 					<h4 style="text-align: center;">Llothis</h4>
-					<h6 style='text-align: center;'>Coming soon!</h6>
+					<br />
+					<div class="countdown" id="llothis-countdown">
+						<div class='progress-bar prog-m'></div>
+					    <div class="countdown-values">00:03:00</div>
+					    <br />
+					    <div class='row'>
+					    	<div id='llothis-s' class="col-xs-6 mech-btn">Start</div>
+					    	<div id='llothis-r' class="col-xs-6 mech-btn">Reset</div>
+					    </div>
+					</div>
 				</div>
 				<div class='col-xs-2'></div>
 			</div>
@@ -249,6 +359,60 @@
 				<div class='col-xs-2'></div>
 				<div class="col-xs-8">
 					<h4 style="text-align: center;">Felms</h4>
+					<br />
+					<div class="countdown" id="felms-countdown">
+						<div class='progress-bar prog-m'></div>
+					    <div class="countdown-values">00:03:00</div>
+					    <br />
+					    <div class='row'>
+					    	<div id='felms-s' class="col-xs-6 mech-btn">Start</div>
+					    	<div id='felms-r' class="col-xs-6 mech-btn">Reset</div>
+					    </div>
+					</div>
+				</div>
+				<div class='col-xs-2'></div>
+			</div>
+
+			<br />
+			<br />
+			<br />
+
+			<!-- Kyne's -->
+			<div class='row' id='kyne'>
+				<div class="col-xs-3"></div>
+				<div class="col-xs-6">
+					<h3 style="text-align: center;">Kyne's Aegis</h3>
+					<hr style='border-color: #434A54;'>
+				</div>
+				<div class="col-xs-3"></div>
+			</div>
+
+			<div class='row'>
+				<div class='col-xs-2'></div>
+				<div class="col-xs-8">
+					<h4 style="text-align: center;">Vrol - Conduits</h4>
+					<br />
+					<div class="countdown" id="vrol-countdown">
+						<div class='progress-bar prog-m'></div>
+					    <div class="countdown-values">00:00:45</div>
+					    <br />
+					    <div class='row'>
+					    	<div id='vrol-s' class="col-xs-6 mech-btn">Start</div>
+					    	<div id='vrol-r' class="col-xs-6 mech-btn">Reset</div>
+					    </div>
+					</div>
+				</div>
+				<div class='col-xs-2'></div>
+			</div>
+
+			<br />
+			<hr style='border-color: #434A54; opacity: 50%;'>
+			<br />
+
+			<div class='row'>
+				<div class='col-xs-2'></div>
+				<div class="col-xs-8">
+					<h4 style="text-align: center;">Falgravn - Coagulants</h4>
 					<h6 style='text-align: center;'>Coming soon!</h6>
 				</div>
 				<div class='col-xs-2'></div>
