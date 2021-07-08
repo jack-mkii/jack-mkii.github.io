@@ -19,6 +19,11 @@
 			var audio = new Audio('sound/beep.wav');
 			var vas_divs = ['#llothis-countdown', '#felms-countdown'];
 
+			// reset anchors on page refresh
+			if (location.href.includes('#')) {
+				location.replace('./timers.html');
+			}
+
 			// set background
 			choice = Math.floor(Math.random() * (MAX - MIN)) + MIN + 1;
 			image_url = 'url(./images/backgrounds/' + choice.toString() + '.jpg' + ') no-repeat center center fixed';
@@ -186,7 +191,7 @@
 			});
 
 			$('#vka').click(function () {
-				scrollToAnchor('#kyne');
+				scrollToAnchor('#kynes');
 			});
 		});
 	</script>
@@ -230,7 +235,7 @@
 				<div class='col-xs-8 click-menu'>
 					<a href='#rockgrove'><button type="button" id='vrg' class="btn btn-idle menu-btn-m">Rockgrove</button></a>
 					<a href='#asylum'><button type="button" id='vas' class="btn btn-idle menu-btn-m">Asylum Sanctorium</button></a>
-					<a href='#kyne'><button type="button" id='vka' class="btn btn-idle menu-btn-m">Kyne's Aegis</button></a>
+					<a href='#kynes'><button type="button" id='vka' class="btn btn-idle menu-btn-m">Kyne's Aegis</button></a>
 				</div>
 				<div class='col-xs-2'></div>
 			</div>
@@ -349,7 +354,7 @@
 			<br />
 
 			<!-- Kyne's -->
-			<div class='row' id='kyne'>
+			<div class='row' id='kynes'>
 				<div class="col-xs-4"></div>
 				<div class="col-xs-4">
 					<h3 style="text-align: center;">Kyne's Aegis</h3>
