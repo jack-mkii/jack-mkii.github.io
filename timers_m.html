@@ -80,6 +80,7 @@
 
 				if ($(btn).html() =='Down') {
 					$(btn).addClass('disabled');
+					$(btn).removeClass('mech-active-m');
 					$(btn).html('Respawning...');
 
 					$(selector).html('00:00:45');
@@ -89,6 +90,7 @@
 					t.start({countdown: true, startValues: {seconds: 45}});
 				} else if ($(btn).html() =='Respawning...') {
 					$(btn).removeClass('disabled');
+					$(btn).addClass('mech-active-m');
 					$(btn).html('Down');
 					$(selector).css('color', '');
 
