@@ -306,19 +306,6 @@ html, body {
 	border: 1px solid #5D9CEC;
 }
 
-.mech-active-m {
-	background-color: #DA4453 !important;
-}
-
-.mech-active-m:hover {
-	background-color: #ED5565 !important;
-}
-
-.mech-active-m:active {
-	background-color: #DA4453 !important;
-	border: 1px solid #ED5565;
-}
-
 .menu-btn-m {
 	margin-top: 0.3%;
 	width: 31%;
