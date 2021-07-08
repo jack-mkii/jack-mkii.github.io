@@ -330,6 +330,14 @@ html, body {
   background-color: #7D0E19 !important;
 }
 
+.disabled:hover {
+  background-color: #7D0E19 !important;
+}
+
+.disabled:active {
+  background-color: #7D0E19 !important;
+}
+
 /* PROGRESS BAR */
 .progress-bar {
 	margin-left: -2%;
