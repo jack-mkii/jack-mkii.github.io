@@ -80,7 +80,6 @@
 
 				if ($(btn).html() =='Down') {
 					$(btn).addClass('disabled');
-					$(btn).css('background-color', '#7D0E19');
 					$(btn).html('Respawning...');
 
 					$(selector).html('00:00:45');
@@ -90,7 +89,6 @@
 					t.start({countdown: true, startValues: {seconds: 45}});
 				} else if ($(btn).html() =='Respawning...') {
 					$(btn).removeClass('disabled');
-					$(btn).css('background-color', '#DA4453');
 					$(btn).html('Down');
 					$(selector).css('color', '');
 
